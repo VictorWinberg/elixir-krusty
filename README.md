@@ -21,6 +21,24 @@ Setup project:
   * Then create database with `mix ecto.create`
   * Start your app with `mix phx.server`
 
+Generate JSON resources:
+
+  * Cookie resource with `mix phoenix.gen.json Cookie cookies name:string`
+  * Ingredient resource with `mix phoenix.gen.json Ingredient ingredients name:string`
+  * Customer resource with `mix phoenix.gen.json Customer customers name:string address:string`
+
+Add the resources to the api scope in `web/router.ex`:
+
+```
+scope "/api", Krusty do
+  pipe_through :api
+
+  resources "/cookies", CookieController
+  resources "/ingredients", IngredientController
+  resources "/customers", CustomerController
+end
+```
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/

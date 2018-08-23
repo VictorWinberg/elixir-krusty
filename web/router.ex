@@ -20,7 +20,11 @@ defmodule Krusty.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Krusty do
-  #   pipe_through :api
-  # end
+  scope "/api", Krusty do
+    pipe_through :api
+
+    resources "/cookies", CookieController
+    resources "/ingredients", IngredientController
+    resources "/customers", CustomerController
+  end
 end
