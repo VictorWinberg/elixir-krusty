@@ -39,6 +39,33 @@ scope "/api", Krusty do
 end
 ```
 
+Migrate: `mix ecto.migrate`
+
+Generate JSON resources with references:
+
+  * Generate Order with `mix phoenix.gen.json Order orders date:date status:integer customer_id:references:customers`
+  * Generate Delivery with `mix phoenix.gen.json Delivery deliveries amount:integer date:date ingredient_id:references:ingredients`
+  * Generate Pallet with `mix phoenix.gen.json Pallet pallets label:string date:date status:integer cookie_id:references:cookies order_id:references:orders`
+
+Add associations for resources with references:
+
+  * Associate Customer with Order: `has_many :orders, Krusty.Order` in `web/models/customer.ex`
+  * Associate Ingredient with Delivery: `has_many :deliveries, Krusty.Delivery` in `web/models/ingredient.ex`
+  * Associate Cookie and Order with Pallet: `has_many :pallets, Krusty.Pallet` in `web/models/cookie.ex` and `web/models/order.ex`
+
+Add the resources to the api scope in `web/router.ex`:
+```
+scope "/api", Krusty do
+  ...
+
+  resources "/orders", OrderController
+  resources "/deliveries", DeliveryController
+  resources "/pallets", PalletController
+end
+```
+
+Migrate: `mix ecto.migrate`
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/
