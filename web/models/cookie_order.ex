@@ -14,7 +14,7 @@ defmodule Krusty.CookieOrder do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:amount])
-    |> validate_required([:amount])
+    |> cast(params, [:amount, :cookie_id, :order_id])
+    |> validate_required([:amount, :cookie_id, :order_id])
   end
 end

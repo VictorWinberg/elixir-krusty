@@ -23,7 +23,11 @@ defmodule Krusty.Router do
   scope "/api", Krusty do
     pipe_through :api
 
-    resources "/cookies", CookieController
+    resources "/cookies", CookieController do
+      resources "/ingredients", CookieIngredientController, only: [:create]
+      resources "/orders", CookieOrderController, only: [:create]
+    end
+
     resources "/ingredients", IngredientController
     resources "/customers", CustomerController
 

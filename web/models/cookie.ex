@@ -4,6 +4,8 @@ defmodule Krusty.Cookie do
   schema "cookies" do
     field :name, :string
     has_many :pallets, Krusty.Pallet
+    has_many :ingredients, Krusty.CookieIngredient
+    has_many :orders, Krusty.CookieOrder
 
     timestamps()
   end
