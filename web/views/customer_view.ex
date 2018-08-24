@@ -10,8 +10,17 @@ defmodule Krusty.CustomerView do
   end
 
   def render("customer.json", %{customer: customer}) do
-    %{id: customer.id,
+    data = %{
+      id: customer.id,
       name: customer.name,
-      address: customer.address}
+      address: customer.address
+    }
+
+    if Ecto.assoc_loaded?(customer.orders) do
+      orders = render_many(customer.orders, Krusty.OrderView, "order.json")
+      Map.put(data, :orders, orders)
+    else
+      data
+    end
   end
 end

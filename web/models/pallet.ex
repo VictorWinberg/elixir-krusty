@@ -16,7 +16,7 @@ defmodule Krusty.Pallet do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:label, :date, :status])
-    |> validate_required([:label, :date, :status])
+    |> cast(params, [:label, :date, :status, :cookie_id, :order_id])
+    |> validate_required([:label, :date, :status, :cookie_id, :order_id])
   end
 end

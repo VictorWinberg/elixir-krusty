@@ -25,7 +25,10 @@ defmodule Krusty.PalletController do
   end
 
   def show(conn, %{"id" => id}) do
-    pallet = Repo.get!(Pallet, id)
+    pallet = Pallet
+             |> Repo.get(id)
+             |> Repo.preload(:cookie)
+             |> Repo.preload(:order)
     render(conn, "show.json", pallet: pallet)
   end
 

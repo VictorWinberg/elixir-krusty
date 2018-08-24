@@ -14,7 +14,7 @@ defmodule Krusty.Delivery do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:amount, :date])
-    |> validate_required([:amount, :date])
+    |> cast(params, [:amount, :date, :ingredient_id])
+    |> validate_required([:amount, :date, :ingredient_id])
   end
 end

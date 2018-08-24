@@ -25,7 +25,9 @@ defmodule Krusty.CustomerController do
   end
 
   def show(conn, %{"id" => id}) do
-    customer = Repo.get!(Customer, id)
+    customer = Customer
+               |> Repo.get(id)
+               |> Repo.preload(:orders)
     render(conn, "show.json", customer: customer)
   end
 

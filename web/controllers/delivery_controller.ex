@@ -25,7 +25,9 @@ defmodule Krusty.DeliveryController do
   end
 
   def show(conn, %{"id" => id}) do
-    delivery = Repo.get!(Delivery, id)
+    delivery = Delivery
+               |> Repo.get(id)
+               |> Repo.preload(:ingredient)
     render(conn, "show.json", delivery: delivery)
   end
 

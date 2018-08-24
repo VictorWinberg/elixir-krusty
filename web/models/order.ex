@@ -15,7 +15,7 @@ defmodule Krusty.Order do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:date, :status])
-    |> validate_required([:date, :status])
+    |> cast(params, [:date, :status, :customer_id])
+    |> validate_required([:date, :status, :customer_id])
   end
 end

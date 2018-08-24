@@ -10,9 +10,17 @@ defmodule Krusty.DeliveryView do
   end
 
   def render("delivery.json", %{delivery: delivery}) do
-    %{id: delivery.id,
+    data = %{
+      id: delivery.id,
       amount: delivery.amount,
-      date: delivery.date,
-      ingredient_id: delivery.ingredient_id}
+      date: delivery.date
+    }
+
+    if Ecto.assoc_loaded?(delivery.ingredient) do
+      ingredient = render_one(delivery.ingredient, Krusty.IngredientView, "ingredient.json")
+      Map.put(data, :ingredient, ingredient)
+    else
+      data
+    end
   end
 end

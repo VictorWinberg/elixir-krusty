@@ -25,7 +25,9 @@ defmodule Krusty.IngredientController do
   end
 
   def show(conn, %{"id" => id}) do
-    ingredient = Repo.get!(Ingredient, id)
+    ingredient = Ingredient
+                 |> Repo.get(id)
+                 |> Repo.preload(:deliveries)
     render(conn, "show.json", ingredient: ingredient)
   end
 

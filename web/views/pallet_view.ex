@@ -10,11 +10,31 @@ defmodule Krusty.PalletView do
   end
 
   def render("pallet.json", %{pallet: pallet}) do
-    %{id: pallet.id,
+    %{
+      id: pallet.id,
       label: pallet.label,
       date: pallet.date,
-      status: pallet.status,
-      cookie_id: pallet.cookie_id,
-      order_id: pallet.order_id}
+      status: pallet.status
+    }
+    |> append_cookie(pallet.cookie)
+    |> append_order(pallet.order)
+  end
+
+  defp append_cookie(data, cookie) do
+    if Ecto.assoc_loaded?(cookie) do
+      cookie = render_one(cookie, Krusty.CookieView, "cookie.json")
+      Map.put(data, :cookie, cookie)
+    else
+      data
+    end
+  end
+
+  defp append_order(data, order) do
+    if Ecto.assoc_loaded?(order) do
+      order = render_one(order, Krusty.OrderView, "order.json")
+      Map.put(data, :order, order)
+    else
+      data
+    end
   end
 end
