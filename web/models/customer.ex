@@ -4,6 +4,7 @@ defmodule Krusty.Customer do
   schema "customers" do
     field :name, :string
     field :address, :string
+    has_many :orders, Krusty.Order
 
     timestamps()
   end

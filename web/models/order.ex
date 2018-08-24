@@ -5,6 +5,7 @@ defmodule Krusty.Order do
     field :date, :date
     field :status, :integer
     belongs_to :customer, Krusty.Customer, foreign_key: :customer_id
+    has_many :pallets, Krusty.Pallet
 
     timestamps()
   end

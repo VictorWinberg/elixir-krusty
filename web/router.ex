@@ -26,5 +26,9 @@ defmodule Krusty.Router do
     resources "/cookies", CookieController
     resources "/ingredients", IngredientController
     resources "/customers", CustomerController
+
+    resources "/orders", OrderController
+    resources "/deliveries", DeliveryController
+    resources "/pallets", PalletController
   end
 end

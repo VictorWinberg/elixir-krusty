@@ -3,6 +3,7 @@ defmodule Krusty.Ingredient do
 
   schema "ingredients" do
     field :name, :string
+    has_many :deliveries, Krusty.Delivery
 
     timestamps()
   end

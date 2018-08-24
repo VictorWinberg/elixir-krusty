@@ -3,6 +3,7 @@ defmodule Krusty.Cookie do
 
   schema "cookies" do
     field :name, :string
+    has_many :pallets, Krusty.Pallet
 
     timestamps()
   end
