@@ -25,7 +25,10 @@ defmodule Krusty.CookieController do
   end
 
   def show(conn, %{"id" => id}) do
-    cookie = Repo.get!(Cookie, id)
+    cookie = Cookie
+             |> Repo.get(id)
+             |> Repo.preload(:ingredients)
+             |> Repo.preload(:orders)
     render(conn, "show.json", cookie: cookie)
   end
 
