@@ -13,6 +13,23 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
 
 ## Tutorial
 
+### TL:DR
+
+TL:DR - Version
+
+  * Setup `mix phoenix.new PROJECT`
+  * Generate JSON resource or model: `mix phoenix.gen.json Resource resources ...`
+  * Models - Update
+    * Associate parents with `has_many`
+    * Cast and validate children with `cast` and `validate_required`
+  * Controllers - Add/Update
+    * Load associations with `Repo.preload`
+    * Build associations with `Ecto.build_assoc`
+    * Create model changeset with `Model.changeset`
+  * Views - Add/Update
+    * Has loaded associations with `Ecto.assoc_loaded?`
+    * Append attribute on map with `Map.put`
+
 ### Setup
 
 Setup project
@@ -53,11 +70,44 @@ Generate JSON resources with references:
   * Generate Delivery with `mix phoenix.gen.json Delivery deliveries amount:integer date:date ingredient_id:references:ingredients`
   * Generate Pallet with `mix phoenix.gen.json Pallet pallets label:string date:date status:integer cookie_id:references:cookies order_id:references:orders`
 
+#### - Models
+
 Add model associations for resources with references:
 
   * Associate Customer with Order: `has_many :orders, Krusty.Order` in `web/models/customer.ex`
   * Associate Ingredient with Delivery: `has_many :deliveries, Krusty.Delivery` in `web/models/ingredient.ex`
   * Associate Cookie and Order with Pallet: `has_many :pallets, Krusty.Pallet` in `web/models/cookie.ex` and `web/models/order.ex`
+
+Update model attributes in changeset in `cast` and `validate_required`:
+```
+|> cast(params, [..., :parent_id])
+|> validate_required([..., :parent_id])
+```
+
+#### - Controllers
+
+Add preload methods for some controllers:
+```
+model = Model
+        |> Repo.get(id)
+        |> Repo.preload(:others)
+```
+
+#### - Views
+
+Update render methods for some views:
+```
+data = %{id: model.id, ...}
+
+if Ecto.assoc_loaded?(model.others) do
+  others = render_many(model.others, Krusty.OtherView, "other.json")
+  Map.put(data, :others, others)
+else
+  data
+end
+```
+
+#### - Router
 
 Add the resources to the api scope in `web/router.ex`:
 ```
@@ -70,31 +120,6 @@ scope "/api", Krusty do
 end
 ```
 
-Update model attributes in changeset in `cast` and `validate_required`:
-```
-|> cast(params, [..., :parent_id])
-|> validate_required([..., :parent_id])
-```
-
-Add preload methods for some controllers:
-```
-model = Model
-        |> Repo.get(id)
-        |> Repo.preload(:others)
-```
-
-Update render methods for some views:
-```
-data = %{id: model.id, ...}
-
-if Ecto.assoc_loaded?(model.others) do
-  others = render_many(model.others, Krusty.OtherView, "other.json")
-  Map.put(data, :others, ingredient)
-else
-  data
-end
-```
-
 Migrate: `mix ecto.migrate`
 
 ### Dependent resources
@@ -103,6 +128,8 @@ Generate Ecto models with references:
 
   * Generate CookieIngredient with `mix phoenix.gen.model CookieIngredient cookie_ingredients amount:integer cookie_id:references:cookies ingredient_id:references:ingredients`
   * Generate CookieOrder with `mix phoenix.gen.model CookieOrder cookie_orders amount:integer cookie_id:references:cookies order_id:references:orders`
+
+#### - Models
 
 Add model has_many associations for weak models:
 
@@ -114,6 +141,8 @@ Update model attributes in changeset in `cast` and `validate_required`:
 |> cast(params, [..., :parent_id])
 |> validate_required([..., :parent_id])
 ```
+
+#### - Controllers
 
 Add controllers for weak model:
 
@@ -152,6 +181,8 @@ model = Model
         |> Repo.preload(:others)
 ```
 
+#### - Views
+
 Update render methods for parent view:
 ```
 data = %{id: model.id, ...}
@@ -163,6 +194,8 @@ else
   data
 end
 ```
+
+#### - Router
 
 Add the resources to the api scope in `web/router.ex`:
 ```
