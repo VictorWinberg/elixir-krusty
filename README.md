@@ -13,6 +13,8 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
 
 ## Tutorial
 
+Tip: [Ecto cheatsheet](https://devhints.io/phoenix-ecto)
+
 ### TL:DR
 
 TL:DR - Version
