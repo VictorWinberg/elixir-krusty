@@ -3,6 +3,7 @@ defmodule Krusty.Ingredient do
 
   schema "ingredients" do
     field :name, :string
+    field :amount, :integer, virtual: true
     has_many :deliveries, Krusty.Delivery
 
     timestamps()
@@ -15,5 +16,14 @@ defmodule Krusty.Ingredient do
     struct
     |> cast(params, [:name])
     |> validate_required([:name])
+  end
+
+  def get(query) do
+    from(
+      ingredient in query,
+      left_join: delivery in assoc(ingredient, :deliveries),
+      group_by: ingredient.id,
+      select: %{ingredient | amount: sum(delivery.amount)}
+    )
   end
 end

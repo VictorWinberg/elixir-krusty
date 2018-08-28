@@ -15,9 +15,8 @@ defmodule Krusty.IngredientView do
       name: ingredient.name
     }
 
-    if Ecto.assoc_loaded?(ingredient.deliveries) do
-      deliveries = render_many(ingredient.deliveries, Krusty.DeliveryView, "delivery.json")
-      Map.put(data, :deliveries, deliveries)
+    if Map.has_key?(ingredient, :amount) do
+      Map.put(data, :amount, ingredient.amount)
     else
       data
     end
