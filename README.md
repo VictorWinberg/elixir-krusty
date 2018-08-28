@@ -11,9 +11,16 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
-## Tutorial
+## Tips
 
-Tip: [Ecto cheatsheet](https://devhints.io/phoenix-ecto)
+  * Use [Ecto cheatsheet](https://devhints.io/phoenix-ecto)
+  * Use Elixir Repl:
+    * Elixir Repl with mix: `iex -S mix`
+    * Import Ecto Query: `import Ecto.Query`
+    * Create aliases: `alias Krusty.{Repo, Cookie, ...}`
+  * Play around with Elixir Repl!
+
+## Tutorial
 
 ### TL:DR
 
