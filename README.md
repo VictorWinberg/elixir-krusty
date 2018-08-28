@@ -11,6 +11,25 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
+## Table of Contents
+
+* [Tips](#tips)
+* [Tutorial](#tutorial)
+  + [TL:DR](#tldr)
+  + [Setup](#setup)
+  + [Independent resources](#independent-resources)
+  + [Semi-independent resources](#semi-independent-resources)
+    - [- Models](#--models)
+    - [- Controllers](#--controllers)
+    - [- Views](#--views)
+    - [- Router](#--router)
+  + [Dependent resources](#dependent-resources)
+    - [- Models](#--models-1)
+    - [- Controllers](#--controllers-1)
+    - [- Views](#--views-1)
+    - [- Router](#--router-1)
+* [Learn more](#learn-more)
+
 ## Tips
 
   * Use [Ecto cheatsheet](https://devhints.io/phoenix-ecto)
