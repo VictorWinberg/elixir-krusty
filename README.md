@@ -31,8 +31,9 @@ TL:DR - Version
   * Models - Update
     * Associate parents with `has_many`
     * Cast and validate children with `cast` and `validate_required`
+    * Create Query methods with `from model in query`, `select`, ...
   * Controllers - Add/Update
-    * Load associations with `Repo.preload`
+    * Load associations with `Repo.preload` or `Model.query`
     * Build associations with `Ecto.build_assoc`
     * Create model changeset with `Model.changeset`
   * Views - Add/Update
@@ -151,6 +152,18 @@ Update model attributes in changeset in `cast` and `validate_required`:
 |> validate_required([..., :parent_id])
 ```
 
+Create model query methods:
+```
+def get(query) do
+  from(
+    model in query,
+    left_join: other in assoc(model, :others),
+    group_by: model.id,
+    select: %{id: model.id, name: model.name}
+  )
+end
+```
+
 #### - Controllers
 
 Add controllers for weak model:
@@ -188,6 +201,13 @@ Add preload methods for parent controller:
 model = Model
         |> Repo.get(id)
         |> Repo.preload(:others)
+```
+
+Or use the model's query methods:
+```
+model = Model
+        |> Model.query()
+        |> Repo.get(id)
 ```
 
 #### - Views
