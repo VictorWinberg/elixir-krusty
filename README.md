@@ -47,16 +47,16 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
 
 TL:DR - Version
 
-  * Setup `mix phoenix.new PROJECT`
-  * Generate JSON resource or model: `mix phoenix.gen.json Resource resources ...`
+  * Setup `mix phoenix.new krusty`
+  * Generate JSON resource or model: `mix phoenix.gen.json Cookie cookies name:string`
   * Models - Update
-    * Associate parents with `has_many :resources, Krusty.Resource`
+    * Associate parents with `has_many :cookies, Krusty.Cookie`
     * Update params in `cast` and `validate_required`
     * Create Query methods with `from model in query`, `select`, ...
   * Controllers - Add/Update
-    * Load associations with `Repo.preload` or `Model.query`
+    * Load associations with `Repo.preload` or `Cookie.query`
     * Build associations with `Ecto.build_assoc`
-    * Create model changeset with `Model.changeset`
+    * Create model changeset with `Cookie.changeset`
   * Views - Add/Update
     * Check has loaded associations with `Ecto.assoc_loaded?`
     * Append key-value pair on map with `Map.put`
@@ -72,7 +72,7 @@ Setup project
   * Go into your application with `cd krusty`
   * Check if dev config is correct `vim config/dev.exs`
   * Then create database with `mix ecto.create`
-  * Start your app with `mix phx.server`
+  * Start your app with `mix phoenix.server`
 
 ### Independent resources
 
