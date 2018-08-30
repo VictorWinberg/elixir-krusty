@@ -23,11 +23,13 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
     - [- Controllers](#--controllers)
     - [- Views](#--views)
     - [- Router](#--router)
+    - [- Migrate](#--migrate)
   + [Dependent resources](#dependent-resources)
     - [- Models](#--models-1)
     - [- Controllers](#--controllers-1)
     - [- Views](#--views-1)
     - [- Router](#--router-1)
+    - [- Migrate](#--migrate-1)
 * [Learn more](#learn-more)
 
 ## Tips
@@ -48,16 +50,19 @@ TL:DR - Version
   * Setup `mix phoenix.new PROJECT`
   * Generate JSON resource or model: `mix phoenix.gen.json Resource resources ...`
   * Models - Update
-    * Associate parents with `has_many`
-    * Cast and validate children with `cast` and `validate_required`
+    * Associate parents with `has_many :resources, Krusty.Resource`
+    * Update params in `cast` and `validate_required`
     * Create Query methods with `from model in query`, `select`, ...
   * Controllers - Add/Update
     * Load associations with `Repo.preload` or `Model.query`
     * Build associations with `Ecto.build_assoc`
     * Create model changeset with `Model.changeset`
   * Views - Add/Update
-    * Has loaded associations with `Ecto.assoc_loaded?`
-    * Append attribute on map with `Map.put`
+    * Check has loaded associations with `Ecto.assoc_loaded?`
+    * Append key-value pair on map with `Map.put`
+  * Router - Update
+    * Add resources to api-scope
+  * Migrate
 
 ### Setup
 
@@ -148,6 +153,8 @@ scope "/api", Krusty do
   resources "/pallets", PalletController
 end
 ```
+
+#### - Migrate: 
 
 Migrate: `mix ecto.migrate`
 
@@ -255,6 +262,8 @@ scope "/api", Krusty do
   ...
 end
 ```
+
+#### - Migrate: 
 
 Migrate: `mix ecto.migrate`
 
