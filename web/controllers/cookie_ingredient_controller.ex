@@ -19,4 +19,17 @@ defmodule Krusty.CookieIngredientController do
         |> render(Krusty.ChangesetView, "error.json", changeset: changeset)
     end
   end
+
+  def index(conn, %{"cookie_id" => cookie_id}) do
+    ingredients = Repo.all(
+        from(
+            i in CookieIngredient, 
+            preload: [:ingredient], 
+            join: ri in assoc(i, :ingredient), 
+            select: i
+            )
+
+        ) 
+    render(conn, "index.json", ingredients: ingredients)
+  end
 end
