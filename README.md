@@ -120,7 +120,7 @@ Update model attributes in changeset in `cast` and `validate_required`:
 
 #### - Controllers
 
-Add preload methods for some controllers:
+Add preload methods for some parent controllers:
 ```
 model = Model
         |> Repo.get(id)
